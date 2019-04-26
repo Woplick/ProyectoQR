@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('Color', 'ColorController');
+Route::resource('Client', 'ClientController');
+Route::resource('Size', 'SizeController');
+Route::resource('Brand', 'BrandController');
+Route::resource('Category', 'CategoryController');
