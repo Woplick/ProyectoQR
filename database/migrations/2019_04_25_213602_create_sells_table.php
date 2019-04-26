@@ -14,7 +14,12 @@ class CreateSellsTable extends Migration
     public function up()
     {
         Schema::create('sells', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->Increments('id');
+            $table->unsignedInteger('id_seller');
+            $table->foreign('id_seller')->references('id')->on('sellers');
+            $table->unsignedInteger('id_cashier');
+            $table->foreign('id_cashier')->references('id')->on('cashiers');
+            $table->date('date');
             $table->timestamps();
         });
     }

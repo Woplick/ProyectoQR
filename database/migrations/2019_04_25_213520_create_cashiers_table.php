@@ -14,7 +14,9 @@ class CreateCashiersTable extends Migration
     public function up()
     {
         Schema::create('cashiers', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->Increments('id');
+            $table->unsignedInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();
         });
     }

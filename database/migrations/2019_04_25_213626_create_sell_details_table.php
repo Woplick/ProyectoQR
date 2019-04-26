@@ -14,7 +14,12 @@ class CreateSellDetailsTable extends Migration
     public function up()
     {
         Schema::create('sell_details', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->unsignedInteger('id_sell');
+            $table->foreign('id_sell')->references('id')->on('sells');
+            $table->unsignedInteger('id_shoes');
+            $table->foreign('id_shoes')->references('id')->on('shoes');
+            $table->integer('quantity');
+            $table->decimal('sell_price',8,2);
             $table->timestamps();
         });
     }

@@ -14,7 +14,10 @@ class CreateSizeShoesTable extends Migration
     public function up()
     {
         Schema::create('size_shoes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->unsignedInteger('id_size');
+            $table->foreign('id_size')->references('id')->on('sizes');
+            $table->unsignedInteger('id_shoes');
+            $table->foreign('id_shoes')->references('id')->on('shoes');
             $table->timestamps();
         });
     }

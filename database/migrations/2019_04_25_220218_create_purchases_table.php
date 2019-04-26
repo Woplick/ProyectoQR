@@ -14,7 +14,12 @@ class CreatePurchasesTable extends Migration
     public function up()
     {
         Schema::create('purchases', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->Increments('id');
+            $table->unsignedInteger('id_admin');
+            $table->foreign('id_admin')->references('id')->on('admins');
+            $table->unsignedInteger('id_wholeseller');
+            $table->foreign('id_wholeseller')->references('id')->on('wholesellers');
+            $table->date('date');
             $table->timestamps();
         });
     }

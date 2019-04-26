@@ -14,7 +14,10 @@ class CreateColorShoesTable extends Migration
     public function up()
     {
         Schema::create('color_shoes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->unsignedInteger('id_color');
+            $table->foreign('id_color')->references('id')->on('colors');
+            $table->unsignedInteger('id_shoe');
+            $table->foreign('id_shoe')->references('id')->on('shoes');
             $table->timestamps();
         });
     }
