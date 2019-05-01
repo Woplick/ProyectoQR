@@ -24,3 +24,4 @@ Route::resource('Client', 'ClientController');
 Route::resource('Size', 'SizeController');
 Route::resource('Brand', 'BrandController');
 Route::resource('Category', 'CategoryController');
+Route::resource('Rol', 'RolController');

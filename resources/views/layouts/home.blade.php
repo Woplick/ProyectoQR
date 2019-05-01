@@ -273,7 +273,7 @@
         <!-- /#header -->
 
         <!--Contenido-->
-        @include('content')
+        @yield('content')
 
         <div class="clearfix"></div>
         <!-- Footer -->
