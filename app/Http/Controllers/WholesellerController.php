@@ -14,7 +14,7 @@ class WholesellerController extends Controller
      */
     public function index()
     {
-        //
+        return view("wholeseller.index");
     }
 
     /**
@@ -24,7 +24,7 @@ class WholesellerController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

@@ -25,3 +25,8 @@ Route::resource('Size', 'SizeController');
 Route::resource('Brand', 'BrandController');
 Route::resource('Category', 'CategoryController');
 Route::resource('Rol', 'RolController');
+Route::resource('Purchase', 'PurchaseController');
+Route::resource('Wholeseller', 'WholesellerController');
+Route::resource('Shoes', 'ShoesController');
+
+

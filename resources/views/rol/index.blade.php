@@ -5,7 +5,7 @@
 <div class="content">
     <div class="card">
         <div class="card-header">
-            <strong class="card-title">Custom Table</strong>
+            <strong class="card-title">Roles</strong>
         </div>
         <div class="table-stats order-table ov-h">
             <table class="table ">

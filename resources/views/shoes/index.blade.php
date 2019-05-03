@@ -5,7 +5,7 @@
 <div class="content">
         <div class="card">
             <div class="card-header">
-                <strong class="card-title">Tamaños </strong>
+                <strong class="card-title">Mercaderia </strong>
             </div>
 
             <div class="table-stats order-table ov-h">
@@ -14,20 +14,57 @@
                         <tr>
                             <th class="serial">#</th>
                             <th>ID</th>
-                            <th>Tallas</th>
+                            <th>Categoria</th>
+                            <th>Modelo</th>
+                            <th>Marca</th>
+                            <th>Color</th>
+                            <th>Talla</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="serial">1.</td>
-                            <td> #5469 </td>
+                            <td> #456 </td>
+                            <td>  <span class="name">Hombre</span> </td>
+                            <td>  <span class="name">Naik Air Max</span> </td>
+                            <td>  <span class="name">Naik</span> </td>
+                            <td>  <span class="name">Negro</span> </td>
                             <td>  <span class="name">Talla-38</span> </td>
                             <td>
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil-square-o"></i>&nbsp; Editar</button>
                                 <button type="button" class="btn btn-danger" ><i class="fa fa-trash"></i>&nbsp; Eliminar</button>
                             </td>
                         </tr>
+
+                        <tr>
+                            <td class="serial">1.</td>
+                            <td> #456 </td>
+                            <td>  <span class="name">Hombre</span> </td>
+                            <td>  <span class="name">Naik Air Max</span> </td>
+                            <td>  <span class="name">Naik</span> </td>
+                            <td>  <span class="name">Negro</span> </td>
+                            <td>  <span class="name">Talla-38</span> </td>
+                            <td>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil-square-o"></i>&nbsp; Editar</button>
+                                <button type="button" class="btn btn-danger" ><i class="fa fa-trash"></i>&nbsp; Eliminar</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="serial">1.</td>
+                            <td> #456 </td>
+                            <td>  <span class="name">Hombre</span> </td>
+                            <td>  <span class="name">Naik Air Max</span> </td>
+                            <td>  <span class="name">Naik</span> </td>
+                            <td>  <span class="name">Negro</span> </td>
+                            <td>  <span class="name">Talla-38</span> </td>
+                            <td>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil-square-o"></i>&nbsp; Editar</button>
+                                <button type="button" class="btn btn-danger" ><i class="fa fa-trash"></i>&nbsp; Eliminar</button>
+                            </td>
+                        </tr>
+
 
                     </tbody>
                 </table>

@@ -5,7 +5,7 @@
 <div class="content">
         <div class="card">
             <div class="card-header">
-                <strong class="card-title">Clientes</strong>
+                <strong class="card-title">Proveedores</strong>
             </div>
 
             <div class="table-stats order-table ov-h">
@@ -41,7 +41,7 @@
                 Añadir
             </button>
         </div>
-    </div>
+</div>
 
     {{-- Modal añadir --}}
 <div class="modal inmodal" id="modal-add" tabindex="-1" role="dialog"  aria-hidden="true">

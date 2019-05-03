@@ -91,6 +91,19 @@
                     <li>
                         <a href="{{route('Rol.index')}}"> <i class="menu-icon ti-email"></i>Roles </a>
                     </li>
+                    <li>
+                        <a href="{{route('Purchase.index')}}"> <i class="menu-icon ti-email"></i>Compras </a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('Wholeseller.index')}}"> <i class="menu-icon ti-email"></i>Proveedores </a>
+                    </li>
+                    <li>
+                        <a href="{{route('Client.index')}}"> <i class="menu-icon ti-email"></i>Clientes </a>
+                    </li>
+                    <li>
+                        <a href="{{route('Shoes.index')}}"> <i class="menu-icon ti-email"></i>Mercaderia </a>
+                    </li>
                     <li class="menu-title">UI elements</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Components</a>
