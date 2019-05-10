@@ -14,7 +14,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('client.index');
+        //return view('client.index');
+        return Client::all();
     }
 
     /**
@@ -35,7 +36,8 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $client =Client::create($request->all());
+        return response()->json($client,201);
     }
 
     /**
@@ -46,7 +48,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        return $client;
     }
 
     /**
@@ -69,7 +71,8 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $client->update($request->all());
+        return response()->json($client,200);
     }
 
     /**
@@ -80,6 +83,7 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return response()->json(null,204);
     }
 }

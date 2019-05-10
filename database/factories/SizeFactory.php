@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Size::class, function (Faker $faker) {
     return [
-        //
+        'size'=>$faker->word
     ];
 });

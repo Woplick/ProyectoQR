@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Brand::class, function (Faker $faker) {
     return [
-        //
+        'brand'=>$faker->word,
+        'description'=>$faker->sentence
     ];
 });

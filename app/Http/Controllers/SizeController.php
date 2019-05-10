@@ -14,7 +14,8 @@ class SizeController extends Controller
      */
     public function index()
     {
-        return view('size.index');
+        //return view('size.index');
+        return Size::all();
     }
 
     /**
@@ -35,7 +36,8 @@ class SizeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $size =Size::create($request->all());
+        return response()->json($size,201);
     }
 
     /**
@@ -46,7 +48,7 @@ class SizeController extends Controller
      */
     public function show(Size $size)
     {
-        //
+        return $size;
     }
 
     /**
@@ -69,7 +71,8 @@ class SizeController extends Controller
      */
     public function update(Request $request, Size $size)
     {
-        //
+        $color->update($request->all());
+        return response()->json($size,200);
     }
 
     /**
@@ -80,6 +83,7 @@ class SizeController extends Controller
      */
     public function destroy(Size $size)
     {
-        //
+        $size->delete();
+        return response()->json(null,204);
     }
 }

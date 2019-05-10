@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Color::class, function (Faker $faker) {
     return [
-        //
+        'color'=>$faker->word
     ];
 });
