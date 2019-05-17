@@ -3,126 +3,175 @@
 @section('content')
 
 <div class="content">
-        <div class="card">
-            <div class="card-header">
-                <strong class="card-title">Clientes</strong>
+        <div class="animated fadeIn">
+                <div class="row">
+                     @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </div><br/>
+                    @endif
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Clientes</strong>
+                            </div>
+                            <div class="card-body">
+                                    <button type="button" class="btn btn-info mb-1 col-lg-3" data-toggle="modal" data-target="#modal-add">
+                                            Añadir
+                                    </button>
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="serial">#</th>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>CI</th>
+                                            <th>N_FACTURA</th>
+                                            <th colspan="2">Acción </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                            @foreach ($clients as $client)
+                                        <tr>
+                                            <td class="serial"></td>
+                                            <td> {{$client->id}}</td>
+                                            <td>  <span class="name">{{$client->name}}</span> </td>
+                                            <td>  <span class="name">{{$client->ci}}</span> </td>
+                                            <td>  <span class="name">{{$client->n_invoice}}</span> </td>
+                                            <td >
+                                                <button href ="#" type="button" class="btn btn-info edit show-modal modal-ml" data-target="#modal-show"
+
+                                                    data-id={{$client->id}}
+                                                    data-color ={{$client->client}}
+
+                                                    >
+
+                                                    <i class="fa fa-pencil-square-o"></i>&nbsp; Editar</button>
+
+                                            </td>
+                                            <td>
+                                                    <form action="{{ route('Client.destroy', $client->id)}}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-danger" type="submit">Borrar</button>
+                                                    </form>
+                                            </td>
+                                        </tr>
+                                            @endforeach
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div><!-- .animated -->
+        </div><!-- .content -->
+
+        <div id="borrar" class="modal fade confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirmar Borrado</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>Estas seguro de eliminar este registro? Este procedimiento es irreversible.</p>
+                            <p>Deseas continuar?</p>
+                            <p class="debug-url"></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <a class="btn btn-danger btn-ok">Borrar</a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="table-stats order-table ov-h">
-                <table class="table ">
-                    <thead>
-                        <tr>
-                            <th class="serial">#</th>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>CI</th>
-                            <th>Celular</th>
-                            <th>Acción</th>
+        {{-- Modal añadir --}}
+    <div class="modal inmodal" id="modal-add" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated fadeIn">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Añadir Cliente</h4>
+                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    </div>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="serial">1.</td>
-                            <td> #5469 </td>
-                            <td>  <span class="name">Julian Martinez</span> </td>
-                            <td>  <span class="name">8564489</span> </td>
-                            <td>  <span class="name">789445656</span> </td>
-                            <td>
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil-square-o"></i>&nbsp; Editar</button>
-                                <button type="button" class="btn btn-danger" ><i class="fa fa-trash"></i>&nbsp; Eliminar</button>
-                            </td>
-                        </tr>
+                    <div class="modal-body">
+                        <div class="form-group">
+                        <form action="{{route('Client.store')}}" method="POST">
+                            @csrf
+                            <label class=" form-control-label" for="color">Nombre input</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-magic"></i></div>
+                                <input class="form-control" name="name" type="text">
+                            </div>
+                            <small class="form-text text-muted">ex. ALEX CHURA</small>
 
-                    </tbody>
-                </table>
-            </div> <!-- /.table-stats -->
-            <button type="button" class="btn btn-info mb-1 col-lg-3" data-toggle="modal" data-target="#modal-add">
-                Añadir
-            </button>
+                            <label class=" form-control-label" for="color">CI input</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-magic"></i></div>
+                                <input class="form-control" name="ci" type="text">
+                            </div>
+                            <small class="form-text text-muted">ex. 4894465</small>
+
+                            <label class=" form-control-label" for="color">Nº factura input</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-magic"></i></div>
+                                <input class="form-control" name="n_invoice" type="text">
+                            </div>
+                            <small class="form-text text-muted">ex. 456798321</small>
+
+                            <button type="submit" class="btn btn-primary" ><i class="fa fa-envolve-0"></i>&nbsp; Guardar</button>
+
+
+                        </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    {{-- Modal añadir --}}
-<div class="modal inmodal" id="modal-add" tabindex="-1" role="dialog"  aria-hidden="true">
+         {{-- Modal Editar --}}
+    <div class="modal inmodal" id="modal-show" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated fadeIn">
                 <div class="modal-header">
-                  <h4 class="modal-title">Añadir Proveedor</h4>
+                  <h4 class="modal-title">Editar Color</h4>
                   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 </div>
-
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class=" form-control-label">Nombre input</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-magic"></i></div>
-                            <input class="form-control">
-                        </div>
-                        <small class="form-text text-muted">ex. Alex Chura</small>
+                                <form action="" method="POST" name="form-edit">
+                                    <label class=" form-control-label" for="color">Color input</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-magic"></i></div>
+                                        <input class="form-control" name="color" id="color">
+                                    </div>
+                                    <small class="form-text text-muted">ex. Verde</small>
 
-                        <label class=" form-control-label">CI input</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-magic"></i></div>
-                            <input class="form-control">
-                        </div>
-                        <small class="form-text text-muted">ex. 8363799</small>
+                                    <button type="submit" class="btn btn-primary" ><i class="fa fa-envolve-0"></i>&nbsp; Guardar</button>
 
-                        <label class=" form-control-label">Celuar input</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-magic"></i></div>
-                            <input class="form-control">
-                        </div>
-                        <small class="form-text text-muted">ex. 6977842</small>
 
-                        <button type="button" class="btn btn-primary" ><i class="fa fa-envolve-0"></i>&nbsp; Guardar</button>
-
+                                </form>
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-     {{-- Modal Editar --}}
-     <div class="modal inmodal" id="modal-edit" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated fadeIn">
-                <div class="modal-header">
-                  <h4 class="modal-title">Editar Proveedor</h4>
-                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class=" form-control-label">Nombre input</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-magic"></i></div>
-                            <input class="form-control">
-                        </div>
-                        <small class="form-text text-muted">ex. Alex Chura</small>
-
-                        <label class=" form-control-label">CI input</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-magic"></i></div>
-                            <input class="form-control">
-                        </div>
-                        <small class="form-text text-muted">ex. 8363799</small>
-
-                        <label class=" form-control-label">Celuar input</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-magic"></i></div>
-                            <input class="form-control">
-                        </div>
-                        <small class="form-text text-muted">ex. 6977842</small>
-
-                        <button type="button" class="btn btn-primary" ><i class="fa fa-envolve-0"></i>&nbsp; Guardar</button>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 @endsection

@@ -14,9 +14,12 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //return view('color.index');
-        return Color::all();
-    }
+
+
+        // return response()->json($color);
+        $colors=Color::all();
+        return view('color.index', ['colors'=>$colors]);
+     }
 
     /**
      * Show the form for creating a new resource.
@@ -36,8 +39,13 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
-        $color =Color::create($request->all());
-        return response()->json($color,201);
+        $request->validate([
+            'color'=>'required'
+        ]);
+
+        Color::create($request->except(['_token']))->save();
+
+        return redirect()->route('Color.index')->with('succes','Color creado exitosamente');
     }
 
     /**
@@ -46,9 +54,15 @@ class ColorController extends Controller
      * @param  \App\Color  $color
      * @return \Illuminate\Http\Response
      */
-    public function show(Color $color)
+    public function show($id)
     {
-        return $color;
+         $color=Color::find($id);
+
+         if (is_null($color)){
+             return $this->sendError('Color not found.');
+         }
+
+         return response()->json($color,200);
     }
 
     /**
@@ -69,10 +83,14 @@ class ColorController extends Controller
      * @param  \App\Color  $color
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Color $color)
+    public function update(Request $request, $id)
     {
-        $color->update($request->all());
-        return response()->json($color,200);
+        $color = Color::findOrFail($id);
+        $color->color = $request->input('color');
+        $color->save();
+        return back()->with('success','Color editado exitosamente');
+        //$color->update($request->all());
+        //return response()->json($color,200);
     }
 
     /**
@@ -81,9 +99,12 @@ class ColorController extends Controller
      * @param  \App\Color  $color
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Color $color)
+    public function destroy($id)
     {
+        $color = Color::find($id);
         $color->delete();
-        return response()->json(null,204);
+        return redirect()->route('Color.index');
+        /*$color->delete();
+        return response()->json(null,204);*/
     }
 }

@@ -16,8 +16,8 @@ class CreateWholesellersTable extends Migration
         Schema::create('wholesellers', function (Blueprint $table) {
             $table->Increments('id');
             $table->string('name',30);
-            $table->string('ci',15);
-            $table->string('phone',15);
+            $table->string('ci');
+            $table->string('phone');
             $table->timestamps();
         });
     }

@@ -14,8 +14,10 @@ class ClientController extends Controller
      */
     public function index()
     {
+        $clients=Client::all();
+        return view('client.index', ['clients'=>$clients]);
         //return view('client.index');
-        return Client::all();
+       // return Client::all();
     }
 
     /**
@@ -36,8 +38,17 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $client =Client::create($request->all());
-        return response()->json($client,201);
+        $request->validate([
+            'name'=>'required',
+            'ci' => 'required',
+            'n_invoice'=> 'required'
+        ]);
+
+        Client::create($request->except(['_token']))->save();
+
+        return redirect()->route('Client.index')->with('succes','Color creado exitosamente');
+        /*$client =Client::create($request->all());
+        return response()->json($client,201);*/
     }
 
     /**
@@ -69,10 +80,16 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, $id)
     {
-        $client->update($request->all());
-        return response()->json($client,200);
+        $client = Client::findOrFail($id);
+        $client->name = $request->input('name');
+        $client->ci = $request->input('ci');
+        $client->n_invoice = $request->input('n_invoice');
+        $client->save();
+        return back()->with('success','Cliente editado exitosamente');
+        /*$client->update($request->all());
+        return response()->json($client,200);*/
     }
 
     /**
@@ -81,9 +98,13 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy($id)
+
     {
+        $client = Client::find($id);
         $client->delete();
-        return response()->json(null,204);
+        return redirect()->route('Client.index');
+       /* $client->delete();
+        return response()->json(null,204);*/
     }
 }

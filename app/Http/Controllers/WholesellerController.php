@@ -14,7 +14,9 @@ class WholesellerController extends Controller
      */
     public function index()
     {
-        return view("wholeseller.index");
+        $wholesellers=Wholeseller::all();
+        return view('wholeseller.index', ['wholesellers'=>$wholesellers]);
+       // return view("wholeseller.index");
     }
 
     /**
@@ -35,7 +37,16 @@ class WholesellerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'ci' => 'required',
+            'phone'=> 'required'
+        ]);
+
+        Wholeseller::create($request->except(['_token']))->save();
+
+        return redirect()->route('Wholeseller.index')->with('succes','Color creado exitosamente');
+
     }
 
     /**
@@ -67,9 +78,14 @@ class WholesellerController extends Controller
      * @param  \App\Wholeseller  $wholeseller
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Wholeseller $wholeseller)
+    public function update(Request $request, $id)
     {
-        //
+        $wholeseller = wholeseller::findOrFail($id);
+        $wholeseller->name = $request->input('name');
+        $wholeseller->ci = $request->input('ci');
+        $wholeseller->phone = $request->input('phone');
+        $wholeseller->save();
+        return back()->with('success','Cliente editado exitosamente');
     }
 
     /**
@@ -78,8 +94,10 @@ class WholesellerController extends Controller
      * @param  \App\Wholeseller  $wholeseller
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Wholeseller $wholeseller)
+    public function destroy($id)
     {
-        //
+        $wholeseller = Wholeseller::find($id);
+        $wholeseller->delete();
+        return redirect()->route('wholeseller.index');
     }
 }

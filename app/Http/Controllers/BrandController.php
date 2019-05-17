@@ -15,7 +15,9 @@ class BrandController extends Controller
     public function index()
     {
         //return view('brand.index');
-        return Brand::all();
+        $brands=Brand::all();
+        // return response()->json($color);
+        return view('brand.index', ['brands'=>$brands]);
     }
 
     /**
@@ -36,8 +38,15 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        $brand =Brand::create($request->all());
-        return response()->json($brand,201);
+        /*$brand =Brand::create($request->all());
+        return response()->json($brand,201);*/
+        $request->validate([
+            'brand'=>'required'
+        ]);
+
+        Brand::create($request->except(['_token']))->save();
+
+        return redirect()->route('Brand.index')->with('succes','Marca creado exitosamente');
     }
 
     /**
@@ -48,7 +57,8 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        return $brand;
+
+     /*   return $response()->json($color,200);*/
     }
 
     /**
@@ -69,10 +79,15 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request,$id)
     {
-        $brand->update($request->all());
-        return response()->json($brand,200);
+        $brand = Brand::findOrFail($id);
+        $brand->brand = $request->input('brand');
+        $brand->brand = $request->input('description');
+        $brand->save();
+        return back()->with('success','Marca editada exitosamente');
+/*        $brand->update($request->all());
+        return response()->json($brand,200);*/
     }
 
     /**
@@ -81,9 +96,12 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy($id)
     {
+        $brand = Brand::find($id);
         $brand->delete();
-        return response()->json(null,204);
+        return redirect()->route('Brand.index');
+       /* $brand->delete();
+        return response()->json(null,204);*/
     }
 }

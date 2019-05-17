@@ -14,8 +14,10 @@ class SizeController extends Controller
      */
     public function index()
     {
+        $sizes=Size::all();
+        return view('size.index', ['sizes'=>$sizes]);
         //return view('size.index');
-        return Size::all();
+        //return Size::all();
     }
 
     /**
@@ -36,8 +38,15 @@ class SizeController extends Controller
      */
     public function store(Request $request)
     {
-        $size =Size::create($request->all());
-        return response()->json($size,201);
+        $request->validate([
+            'size'=>'required'
+        ]);
+
+        Size::create($request->except(['_token']))->save();
+
+        return redirect()->route('Size.index')->with('succes','Color creado exitosamente');
+       /* $size =Size::create($request->all());
+        return response()->json($size,201);*/
     }
 
     /**
@@ -69,10 +78,14 @@ class SizeController extends Controller
      * @param  \App\Size  $size
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Size $size)
+    public function update(Request $request, $id)
     {
-        $color->update($request->all());
-        return response()->json($size,200);
+        $size = Size::findOrFail($id);
+        $size->size = $request->input('size');
+        $size->save();
+        return back()->with('success','Color editado exitosamente');
+    /*  $color->update($request->all());
+        return response()->json($size,200);*/
     }
 
     /**
@@ -81,9 +94,12 @@ class SizeController extends Controller
      * @param  \App\Size  $size
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Size $size)
+    public function destroy($id)
     {
+        $size = Size::find($id);
         $size->delete();
-        return response()->json(null,204);
+        return redirect()->route('Size.index');
+        /*$size->delete();
+        return response()->json(null,204);*/
     }
 }

@@ -15,7 +15,8 @@ class CategoryController extends Controller
     public function index()
     {
         //return view('category.index');
-        return Category::all();
+        $categories=category::all();
+        return view('category.index', ['categories'=>$categories]);
     }
 
     /**
@@ -36,8 +37,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category =Category::create($request->all());
-        return response()->json($category,201);
+        $request->validate([
+            'description'=>'required'
+        ]);
+
+        Category::create($request->except(['_token']))->save();
+
+        return redirect()->route('Category.index')->with('succes','Category creado exitosamente');
+        /*$category =Category::create($request->all());
+        return response()->json($category,201);*/
     }
 
     /**
@@ -48,7 +56,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return $category;
+        return $category->id;
     }
 
     /**
@@ -71,8 +79,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->update($request->all());
-        return response()->json($category,200);
+        $category = Category::findOrFail($id);
+        $category->description = $request->input('category');
+        $category->save();
+        return back()->with('success','Category editado exitosamente');
+       /* $category->update($request->all());
+        return response()->json($category,200);*/
     }
 
     /**
@@ -81,9 +93,12 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
+        $category = Category::find($id);
         $category->delete();
-        return response()->json(null,204);
+        return redirect()->route('Category.index');
+        /*$category->delete();
+        return response()->json(null,204);*/
     }
 }
